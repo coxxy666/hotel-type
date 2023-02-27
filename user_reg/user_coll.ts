@@ -1,9 +1,9 @@
-const bookService = require("../include/functions");
+import Hotel_Service from "../include/functions";
 
 class HotelBook {
-  async bookHotel(req, res) {
+  async bookHotel(req: Request, res: Response, next) {
     const body = req.body;
-    const createdroom = await Hotel_Service.hotelBooking(body);
+    const createdroom = await Hotel_Service.bookHotel(body);
     return res.status(201).json({
       success: true,
       message: " Successfully Boooked",
@@ -11,15 +11,15 @@ class HotelBook {
     });
   }
 
-  async deleteBooking(req, res) {
+  async deleteBooking(req: Request, res: Response) {
     const roomId = req.params.id;
-    await Hotel_Service.deleteBook(roomId);
+    const deleteRoom = await Hotel_Service.deleteBooking(roomId);
     return res.status(200).json({
       success: true,
       message: "Book Deleted Successfully",
-      data: bookToFetch,
+      data: deleteRoom,
     });
   }
 }
 
-module.exports = new HotelBook();
+export default new HotelBook();
